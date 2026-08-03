@@ -45,6 +45,7 @@ export interface RequestCompletedPayload {
   latencyMs: number;
   comboName?: string;
   error?: string;
+  apiKeyId?: string | null;  // 二开：透传 apiKeyInfo.id，供卡密扣分订阅用
 }
 
 export interface RequestFailedPayload {

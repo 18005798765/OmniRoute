@@ -99,6 +99,7 @@ export function resolveRequestLifecycleEvent(input: {
   comboName?: unknown;
   tokens?: unknown;
   latencyMs: number;
+  apiKeyInfo?: { id?: string | null } | null;
 }):
   | { name: "request.completed"; payload: RequestCompletedPayload }
   | { name: "request.failed"; payload: RequestFailedPayload } {
@@ -122,6 +123,7 @@ export function resolveRequestLifecycleEvent(input: {
         tokensOutput: num(tokenBag.output ?? tokenBag.completion_tokens ?? tokenBag.outputTokens),
         latencyMs,
         comboName: resolvedComboName,
+        apiKeyId: input.apiKeyInfo?.id || null,
       },
     };
   }
@@ -293,6 +295,7 @@ export function persistAttemptLogs(args: PersistAttemptLogsArgs, ctx: PersistAtt
       comboName,
       tokens,
       latencyMs: Date.now() - startTime,
+      apiKeyInfo,
     });
     if (lifecycle.name === "request.completed") {
       emit("request.completed", lifecycle.payload);

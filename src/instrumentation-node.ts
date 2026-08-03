@@ -608,5 +608,13 @@ export async function registerNodejs(): Promise<void> {
     ]);
   }
 
+  // Aether 卡密扣分订阅（overlay 二开）：注册 request.completed -> chargeForRequest
+  try {
+    const { registerBillingSubscriber } = await import("@/lib/aether/billingSubscriber");
+    registerBillingSubscriber();
+    console.log("[STARTUP] Aether billing subscriber registered");
+  } catch (e) {
+    console.log("[STARTUP] Aether billing subscriber failed:", e?.message || e);
+  }
   markServerReady();
 }
