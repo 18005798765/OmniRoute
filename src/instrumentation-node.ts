@@ -8,7 +8,7 @@
 
 import { markServerReady, markServerStarting } from "@/lib/serverLifecycle";
 // Aether 卡密扣分订阅（overlay 二开）：静态 import 让 Next.js standalone tracing 打包进镜像
-import { registerBillingSubscriber } from "@/lib/aether/billingSubscriber.js";
+import { registerBillingSubscriber } from "@/lib/aether/billingSubscriber";
 
 function getRandomBytes(byteLength: number): Uint8Array {
   const bytes = new Uint8Array(byteLength);
