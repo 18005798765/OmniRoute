@@ -116,8 +116,10 @@ ENV OMNIROUTE_MITM_STUB=1
 ARG OMNIROUTE_BUILD_MEMORY_MB=4096
 ENV NODE_OPTIONS="--max-old-space-size=${OMNIROUTE_BUILD_MEMORY_MB}"
 
+# OVERLAY_BUST 强制失效 COPY 缓存：overlay 是 untracked/临时 commit，BuildKit 有时不重算 context
+ARG OVERLAY_BUST=0
 COPY . ./
-RUN echo "=== DIAG src/lib ===" && ls /app/src/lib/ | grep -i aether || echo "NO aether in src/lib" && echo "=== DIAG aether dir ===" && ls /app/src/lib/aether/ 2>&1 | head -10 || echo "NO_AETHER_DIR"
+RUN echo "=== DIAG src/lib OVERLAY_BUST=$OVERLAY_BUST ===" && ls /app/src/lib/ | grep -i aether || echo "NO aether in src/lib" && echo "=== DIAG aether dir ===" && ls /app/src/lib/aether/ 2>&1 | head -15 || echo "NO_AETHER_DIR"
 RUN --mount=type=cache,id=next-cache,target=/app/.build/next/cache \
   mkdir -p /app/data && npm run build
 
