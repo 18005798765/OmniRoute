@@ -81,9 +81,8 @@ RUN --mount=type=cache,id=npm-cache,target=/root/.npm \
   && (cd node_modules/better-sqlite3 \
       && node /usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js rebuild) \
   && node -e "require('better-sqlite3')(':memory:').close()" \
-  && node node_modules/tls-client-node/scripts/postinstall.js \
-  && (test -n "$(find node_modules/tls-client-node/bin -mindepth 1 -print -quit 2>/dev/null)" \
-      || (echo "tls-client-node native binary missing after postinstall — GitHub API fetch likely rate-limited or failed (#7802)" >&2 && exit 1))
+  && (node node_modules/tls-client-node/scripts/postinstall.js || true) \
+  && echo "tls-client-node postinstall done/skipped (二开 fork: 国内 build 下不到 GitHub 二进制时不中断，运行时不用 web-cookie provider 即可)"
 
 # Build with Turbopack (stable in Next 16, the repo default). The v3.8.27-era
 # TurbopackInternalError panic ("entered unreachable code: there must be a path to a
