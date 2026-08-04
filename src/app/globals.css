@@ -164,6 +164,14 @@
 }
 
 @theme inline {
+  --color-brand-50: var(--color-primary-50, #f0f7ff);
+  --color-brand-100: var(--color-primary-100, #e0effe);
+  --color-brand-200: var(--color-primary-200, #bae0fd);
+  --color-brand-300: var(--color-primary-300, #7dc8fc);
+  --color-brand-400: var(--color-primary-400, #38aaf9);
+  --color-brand-500: var(--color-primary, #0ea5e9);
+  --color-brand-600: var(--color-primary-hover, #0284c7);
+  --color-brand-700: var(--color-primary-700, #0369a1);
   /* Primary */
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);
