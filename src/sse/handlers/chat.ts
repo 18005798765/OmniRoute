@@ -103,6 +103,8 @@ import { RequestTelemetry, recordTelemetry } from "../../shared/utils/requestTel
 import { generateRequestId } from "../../shared/utils/requestId";
 import { logAuditEvent } from "../../lib/compliance/index";
 import { enforceApiKeyPolicy } from "../../shared/utils/apiKeyPolicy";
+// Aether 卡密准入闸（二开 overlay）：卡密 key 检查额度/机器码/心跳
+import { checkCardGate } from "@/lib/aether/gate";
 import { hasProviderQuotaBypassScope } from "../../shared/constants/apiKeyPolicyScopes";
 import { cloneBoundedForLog } from "@omniroute/open-sse/utils/requestLogger.ts";
 import { handleInternalUsageCommand } from "@/lib/usage/internalUsageCommand";
@@ -485,6 +487,17 @@ export async function handleChat(
   }
   const apiKeyInfo = policy.apiKeyInfo;
   const bypassProviderQuotaPolicy = hasProviderQuotaBypassScope(apiKeyInfo?.scopes);
+
+  // Aether 卡密准入闸（二开）：卡密 key（有钱包）在请求前检查额度/机器码/心跳。
+  // 非卡密 key（无钱包）checkCardGate 内部直接放行。额度不足 402、机器码不符 403。
+  if (apiKeyInfo?.id) {
+    const gate = await checkCardGate(apiKeyInfo.id, request);
+    if (!gate.ok) {
+      log.warn("AETHER_GATE", `Card gate rejected: ${gate.code} ${gate.error}`);
+      return errorResponse(gate.status, gate.error);
+    }
+  }
+
   telemetry.endPhase();
 
   // Guardrail pre-call pipeline — prompt injection, PII masking, and future custom rules.
