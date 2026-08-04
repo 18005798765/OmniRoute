@@ -70,7 +70,7 @@ export default function Input({
     [errorId, showCapsLock ? capsLockId : undefined, hintId].filter(Boolean).join(" ") || undefined;
 
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
+    <div className={cn("flex flex-col gap-4", className)}>
       {label && (
         <label htmlFor={inputId} className="text-sm font-medium text-text-main">
           {label}

@@ -745,6 +745,24 @@ const HELP_ITEMS: readonly SidebarItemDefinition[] = [
   },
 ];
 
+// Aether 二开：卡密管理导航项
+const AETHER_ITEMS = [
+  {
+    id: "cards",
+    href: "/dashboard/cards",
+    labelFallback: "卡密授权",
+    subtitleFallback: "发卡 / 钱包 / 机器码",
+    icon: "style",
+  },
+  {
+    id: "orders",
+    href: "/dashboard/orders",
+    labelFallback: "前台订单",
+    subtitleFallback: "确认到账 / 发卡",
+    icon: "receipt_long",
+  },
+];
+
 // ─── Sections ────────────────────────────────────────────────────────────────
 
 export const SIDEBAR_SECTIONS: readonly SidebarSectionDefinition[] = [
@@ -815,5 +833,11 @@ export const SIDEBAR_SECTIONS: readonly SidebarSectionDefinition[] = [
     titleKey: "helpSection",
     titleFallback: "Help",
     children: HELP_ITEMS,
+  },
+  {
+    id: "aether",
+    titleFallback: "卡密管理",
+    children: AETHER_ITEMS,
+    showTitle: true,
   },
 ] as const;

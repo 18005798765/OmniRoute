@@ -168,7 +168,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-xs text-text-muted/60 mt-8">
-            OmniRoute — {t("unifiedProxy")}
+            AetherRouter — {t("unifiedProxy")}
           </p>
         </div>
       </div>
@@ -208,7 +208,7 @@ export default function LoginPage() {
           </div>
 
           <p className="text-center text-xs text-text-muted/60 mt-8">
-            OmniRoute — {t("unifiedAiApiProxy")}
+            AetherRouter — {t("unifiedAiApiProxy")}
           </p>
         </div>
       </div>
@@ -231,7 +231,7 @@ export default function LoginPage() {
                   <span className="material-symbols-outlined text-white text-[20px]">hub</span>
                 </div>
                 <span className="text-xl font-semibold text-text-main tracking-tight">
-                  OmniRoute
+                  AetherRouter
                 </span>
               </div>
               <h1 className="text-2xl font-bold text-text-main tracking-tight">{t("signIn")}</h1>
@@ -239,7 +239,7 @@ export default function LoginPage() {
             </div>
 
             <form onSubmit={handleLogin} className="space-y-5">
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <label className="text-sm font-medium text-text-main">{t("password")}</label>
                 <Input
                   type="password"
